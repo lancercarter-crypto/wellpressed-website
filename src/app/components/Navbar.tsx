@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, ShoppingBag } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { useCart } from '../context/CartContext';
 import logoImg from '../../imports/BWellPressed_Official_logo.png';
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { itemCount, openCart } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -59,10 +61,34 @@ export function Navbar() {
               </Link>
             )
           ))}
+          <button
+            onClick={openCart}
+            className="relative text-stone-800 hover:text-emerald-700 p-2 transition-colors"
+            aria-label="Open cart"
+          >
+            <ShoppingBag className="w-6 h-6" />
+            {itemCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-emerald-600 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                {itemCount}
+              </span>
+            )}
+          </button>
         </nav>
 
         {/* Mobile Nav Toggle */}
         <div className="flex md:hidden items-center gap-4 z-50">
+          <button
+            onClick={openCart}
+            className="relative text-stone-800 p-2"
+            aria-label="Open cart"
+          >
+            <ShoppingBag className="w-6 h-6" />
+            {itemCount > 0 && (
+              <span className="absolute -top-0.5 -right-0.5 bg-emerald-600 text-white text-[10px] font-bold rounded-full w-4 h-4 flex items-center justify-center">
+                {itemCount}
+              </span>
+            )}
+          </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="text-stone-800 p-2"

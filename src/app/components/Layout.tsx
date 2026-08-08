@@ -2,6 +2,7 @@ import React from 'react';
 import { Outlet } from 'react-router';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
+import { CartDrawer } from './CartDrawer';
 
 export function Layout() {
   return (
@@ -11,6 +12,7 @@ export function Layout() {
         <Outlet />
       </main>
       <Footer />
+      <CartDrawer />
     </div>
   );
 }
